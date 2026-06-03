@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#111827"/>
+    </marker>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 17px Arial, sans-serif; fill: #374151; }
+      .stage { font: 700 20px Arial, sans-serif; fill: #111827; }
+      .body { font: 16px Arial, sans-serif; fill: #1f2937; }
+      .mono { font: 15px "Courier New", monospace; fill: #111827; }
+      .small { font: 14px Arial, sans-serif; fill: #374151; }
+      .tiny { font: 12px Arial, sans-serif; fill: #4b5563; }
+      .box { stroke: #111827; stroke-width: 2; rx: 16; ry: 16; }
+      .raw { fill: #dbeafe; }
+      .prep { fill: #dcfce7; }
+      .anon { fill: #fef3c7; }
+      .tok { fill: #ede9fe; }
+      .model { fill: #e0f2fe; }
+      .post { fill: #fee2e2; }
+      .out { fill: #f3f4f6; }
+      .inner { fill: #ffffff; stroke: #6b7280; stroke-width: 1.4; rx: 10; ry: 10; }
+      .arrow { stroke: #111827; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #6b7280; stroke-width: 2; stroke-dasharray: 6 6; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="1500" fill="#ffffff"/>
+
+  <text x="600" y="48" text-anchor="middle" class="title">Canvas Announcement to Calendar Output</text>
+  <text x="600" y="78" text-anchor="middle" class="subtitle">Example pipeline using the second sample announcement</text>
+
+  <!-- Stage 1 -->
+  <rect x="80" y="115" width="1040" height="150" class="box raw"/>
+  <text x="110" y="148" class="stage">1. Raw Canvas Announcement</text>
+  <rect x="110" y="165" width="980" height="70" class="inner"/>
+  <text x="130" y="190" class="body">Title: PRA0105 Reschedule</text>
+  <text x="130" y="214" class="body">PRA0106 / Tutor: Reza Rahmati / Room: MY430 / Day and Time: Wednesday, Nov 27, 10 am-12 pm</text>
+  <text x="130" y="242" class="tiny">Raw fields may include course code, names, rooms, contact info, Canvas links, and posted time.</text>
+
+  <path d="M600 265 L600 315" class="arrow"/>
+
+  <!-- Stage 2 -->
+  <rect x="80" y="315" width="1040" height="175" class="box prep"/>
+  <text x="110" y="348" class="stage">2. Pre-Processing</text>
+  <rect x="110" y="365" width="310" height="86" class="inner"/>
+  <text x="130" y="390" class="body">Clean text</text>
+  <text x="130" y="415" class="small">remove extra spaces</text>
+  <text x="130" y="437" class="small">normalize punctuation</text>
+
+  <rect x="450" y="365" width="310" height="86" class="inner"/>
+  <text x="470" y="390" class="body">Keep metadata</text>
+  <text x="470" y="415" class="small">announcement_id</text>
+  <text x="470" y="437" class="small">announcement_link, course id</text>
+
+  <rect x="790" y="365" width="300" height="86" class="inner"/>
+  <text x="810" y="390" class="body">Remove duplicates</text>
+  <text x="810" y="415" class="small">same title/body hash</text>
+  <text x="810" y="437" class="small">avoid train/test leakage</text>
+  <text x="110" y="474" class="tiny">Pre-processing prepares the text before privacy hiding and model tokenization.</text>
+
+  <path d="M600 490 L600 540" class="arrow"/>
+
+  <!-- Stage 3 -->
+  <rect x="80" y="540" width="1040" height="190" class="box anon"/>
+  <text x="110" y="573" class="stage">3. Privacy Hiding / Blurry Version</text>
+  <rect x="110" y="590" width="980" height="92" class="inner"/>
+  <text x="130" y="617" class="body">Title: YQS7911 Reschedule</text>
+  <text x="130" y="641" class="body">AAI2617 / Tutor: Denver Denrin / Room: PY512 / Day and Time: Wednesday, Nov 27, 10 am-12 pm</text>
+  <text x="130" y="669" class="tiny">Same sensitive value gets the same replacement inside one announcement. Replacement keeps similar shape.</text>
+
+  <text x="130" y="708" class="small">Examples: PRA0105 -> YQS7911, PRA0106 -> AAI2617, Reza Rahmati -> Denver Denrin, MY430 -> PY512</text>
+
+  <path d="M600 730 L600 780" class="arrow"/>
+
+  <!-- Stage 4 -->
+  <rect x="80" y="780" width="1040" height="210" class="box tok"/>
+  <text x="110" y="813" class="stage">4. Tokenization + Labels</text>
+  <rect x="110" y="832" width="980" height="83" class="inner"/>
+  <text x="130" y="858" class="mono">[CLS] AAI2617 / Tutor : Denver Denrin / Room : PY512 / Day and Time :</text>
+  <text x="130" y="883" class="mono">Wednesday , Nov 27 , 10 am - 12 pm [SEP]</text>
+  <text x="130" y="907" class="tiny">Transformer tokenizer may split words into subwords; labels are aligned back to tokens.</text>
+
+  <rect x="110" y="932" width="980" height="42" class="inner"/>
+  <text x="130" y="958" class="mono">COURSE_CODE     CONTACT_NAME       LOCATION        DATE        TIME_RANGE</text>
+
+  <path d="M600 990 L600 1040" class="arrow"/>
+
+  <!-- Stage 5 model -->
+  <rect x="80" y="1040" width="1040" height="185" class="box model"/>
+  <text x="110" y="1073" class="stage">5. Single Transformer Sequence-Labeling Model</text>
+
+  <rect x="150" y="1092" width="350" height="110" class="inner"/>
+  <text x="325" y="1122" text-anchor="middle" class="body">Tokenized Announcement</text>
+  <text x="325" y="1148" text-anchor="middle" class="small">input ids + attention mask</text>
+  <text x="325" y="1172" text-anchor="middle" class="small">one announcement at a time</text>
+
+  <rect x="585" y="1082" width="250" height="130" class="inner"/>
+  <text x="710" y="1112" text-anchor="middle" class="body">Single Transformer</text>
+  <text x="710" y="1138" text-anchor="middle" class="small">DistilBERT / small BERT</text>
+  <text x="710" y="1162" text-anchor="middle" class="small">one output type:</text>
+  <text x="710" y="1186" text-anchor="middle" class="small">token labels</text>
+
+  <rect x="920" y="1092" width="160" height="110" class="inner"/>
+  <text x="1000" y="1122" text-anchor="middle" class="body">Token Labels</text>
+  <text x="1000" y="1148" text-anchor="middle" class="small">COURSE, NAME</text>
+  <text x="1000" y="1172" text-anchor="middle" class="small">ROOM, DATE, TIME</text>
+
+  <path d="M500 1147 L585 1147" class="arrow"/>
+  <path d="M835 1147 L920 1147" class="arrow"/>
+
+  <path d="M600 1225 L600 1275" class="arrow"/>
+
+  <!-- Stage 6 output -->
+  <rect x="80" y="1275" width="1040" height="185" class="box out"/>
+  <text x="110" y="1308" class="stage">6. Post-Processing Builds Structured Output</text>
+
+  <rect x="110" y="1325" width="470" height="122" class="inner"/>
+  <text x="130" y="1350" class="mono">{</text>
+  <text x="150" y="1372" class="mono">"announcement_type": "event",  // derived</text>
+  <text x="150" y="1394" class="mono">"calendar_item_count": 1,</text>
+  <text x="150" y="1416" class="mono">"item_type": "tutorial",</text>
+  <text x="150" y="1438" class="mono">"title": "Alternative TA session"</text>
+
+  <rect x="615" y="1325" width="475" height="122" class="inner"/>
+  <text x="635" y="1350" class="mono">"time.start": "2026-11-27 10:00",</text>
+  <text x="635" y="1372" class="mono">"time.end":   "2026-11-27 12:00",</text>
+  <text x="635" y="1394" class="mono">"location.room": "PY512",</text>
+  <text x="635" y="1416" class="mono">"contact.name": "Denver Denrin"</text>
+  <text x="635" y="1438" class="mono">}</text>
+
+  <!-- Side export labels -->
+  <rect x="915" y="250" width="170" height="86" fill="#ffffff" stroke="#64748b" stroke-width="1.5" rx="10"/>
+  <text x="1000" y="278" text-anchor="middle" class="small">Final export can be</text>
+  <text x="1000" y="302" text-anchor="middle" class="small">.ics VEVENT</text>
+  <text x="1000" y="324" text-anchor="middle" class="small">or calendar CSV</text>
+
+  <path d="M1035 1325 C1135 1250 1140 420 1085 335" class="dash"/>
+</svg>

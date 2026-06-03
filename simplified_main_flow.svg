@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#777"/>
+    </marker>
+    <style>
+      .title { font: 400 34px Arial, sans-serif; fill: #111; }
+      .box-title { font: 700 20px Arial, sans-serif; fill: #111; }
+      .text { font: 16px Arial, sans-serif; fill: #111; }
+      .small { font: 14px Arial, sans-serif; fill: #333; }
+      .mono { font: 14px "Courier New", monospace; fill: #111; }
+      .arrow { stroke: #777; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .box { stroke: none; rx: 24; ry: 24; }
+      .raw { fill: #b5e8ea; }
+      .prep { fill: #a9f5d8; }
+      .tok { fill: #fff3c4; }
+      .model { fill: #fff0c9; }
+      .post { fill: #d9f3ff; }
+      .out { fill: #d9f0a8; }
+      .inner { fill: rgba(255,255,255,0.42); stroke: none; rx: 8; ry: 8; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="820" fill="#fff"/>
+
+  <text x="600" y="78" text-anchor="middle" class="title">Announcement to Calendar Output</text>
+  <text x="600" y="110" text-anchor="middle" class="small">Simplified single-model flow</text>
+
+  <!-- Main boxes -->
+  <rect x="80" y="240" width="170" height="150" class="box raw"/>
+  <text x="165" y="276" text-anchor="middle" class="box-title">Raw</text>
+  <text x="165" y="310" text-anchor="middle" class="small">PRA0106</text>
+  <text x="165" y="335" text-anchor="middle" class="small">Reza Rahmati</text>
+  <text x="165" y="360" text-anchor="middle" class="small">MY430</text>
+
+  <rect x="325" y="215" width="190" height="200" class="box prep"/>
+  <text x="420" y="252" text-anchor="middle" class="box-title">Pre-process</text>
+  <rect x="355" y="275" width="130" height="48" class="inner"/>
+  <text x="420" y="296" text-anchor="middle" class="small">clean text</text>
+  <text x="420" y="315" text-anchor="middle" class="small">deduplicate</text>
+  <rect x="355" y="340" width="130" height="48" class="inner"/>
+  <text x="420" y="361" text-anchor="middle" class="small">hide privacy</text>
+  <text x="420" y="380" text-anchor="middle" class="small">keep link</text>
+
+  <rect x="590" y="240" width="190" height="150" class="box tok"/>
+  <text x="685" y="276" text-anchor="middle" class="box-title">Tokenize</text>
+  <text x="685" y="310" text-anchor="middle" class="mono">[CLS] AAI2617</text>
+  <text x="685" y="335" text-anchor="middle" class="mono">Denver Denrin</text>
+  <text x="685" y="360" text-anchor="middle" class="mono">PY512 Nov 27</text>
+
+  <rect x="855" y="185" width="230" height="260" class="box model"/>
+  <text x="970" y="238" text-anchor="middle" class="box-title">Single</text>
+  <text x="970" y="264" text-anchor="middle" class="box-title">Transformer</text>
+  <rect x="900" y="300" width="140" height="54" class="inner"/>
+  <text x="970" y="322" text-anchor="middle" class="text">Self Attention</text>
+  <text x="970" y="344" text-anchor="middle" class="small">context</text>
+  <rect x="900" y="375" width="140" height="54" class="inner"/>
+  <text x="970" y="397" text-anchor="middle" class="text">Token Labels</text>
+  <text x="970" y="419" text-anchor="middle" class="small">one model</text>
+
+  <rect x="520" y="560" width="180" height="175" class="box post"/>
+  <text x="610" y="600" text-anchor="middle" class="box-title">Post</text>
+  <text x="610" y="624" text-anchor="middle" class="box-title">process</text>
+  <text x="610" y="660" text-anchor="middle" class="small">merge labels</text>
+  <text x="610" y="684" text-anchor="middle" class="small">normalize time</text>
+  <text x="610" y="708" text-anchor="middle" class="small">derive event</text>
+
+  <rect x="350" y="860" width="500" height="135" class="box out"/>
+  <text x="600" y="896" text-anchor="middle" class="box-title">Structured Output</text>
+  <text x="600" y="932" text-anchor="middle" class="mono">title: Alternative TA session</text>
+  <text x="600" y="956" text-anchor="middle" class="mono">start: Nov 27 10:00   end: 12:00</text>
+  <text x="600" y="980" text-anchor="middle" class="mono">location: PY512   contact: Denver Denrin</text>
+
+  <!-- Arrows -->
+  <path d="M250 315 L325 315" class="arrow"/>
+  <path d="M515 315 L590 315" class="arrow"/>
+  <path d="M780 315 L855 315" class="arrow"/>
+  <path d="M970 445 C970 530 700 525 680 560" class="arrow"/>
+  <path d="M610 735 L610 860" class="arrow"/>
+
+  <text x="600" y="1100" text-anchor="middle" class="small">Raw announcement -> privacy-safe text -> tokens -> one Transformer sequence labeler -> calendar-ready output</text>
+</svg>

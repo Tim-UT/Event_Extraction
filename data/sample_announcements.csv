@@ -1,0 +1,3 @@
+announcement_id,title,body_text,announcement_type,labels_json
+ann_000001,YQS7911 Reschedule,"Hello everyone, As I am not able to run your classes this week, please kindly attend the alternative TA session below: AAI2617 / Tutor: Denver Denrin / Room: PY512 / Day and Time: Wednesday, Nov 27, 10 am-12 pm",event,"[{""text"":""AAI2617"",""label"":""COURSE_CODE""},{""text"":""Denver Denrin"",""label"":""CONTACT_NAME""},{""text"":""PY512"",""label"":""LOCATION""},{""text"":""Wednesday, Nov 27"",""label"":""DATE""},{""text"":""10 am-12 pm"",""label"":""TIME""}]"
+

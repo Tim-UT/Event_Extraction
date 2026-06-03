@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1150" viewBox="0 0 1500 1150">
+  <defs>
+    <style>
+      .title { font: 700 36px Arial, sans-serif; fill: #1f2937; }
+      .section { font: 700 22px Arial, sans-serif; fill: #111827; }
+      .label { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .small { font: 15px Arial, sans-serif; fill: #374151; }
+      .tiny { font: 13px Arial, sans-serif; fill: #4b5563; }
+      .box { stroke: #334155; stroke-width: 2; rx: 14; ry: 14; }
+      .data { fill: #dbeafe; }
+      .prep { fill: #dcfce7; }
+      .labelbox { fill: #fef3c7; }
+      .model { fill: #ede9fe; }
+      .post { fill: #fee2e2; }
+      .out { fill: #e0f2fe; }
+      .export { fill: #f3f4f6; }
+      .arrow { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .thin { stroke: #64748b; stroke-width: 2.4; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1500" height="1150" fill="#ffffff"/>
+  <text x="750" y="55" text-anchor="middle" class="title">Canvas Announcement Event Extraction Pipeline</text>
+
+  <!-- Main pipeline boxes -->
+  <rect x="90" y="105" width="250" height="110" class="box data"/>
+  <text x="215" y="138" text-anchor="middle" class="label">1. Raw Canvas Data</text>
+  <text x="215" y="166" text-anchor="middle" class="small">announcements</text>
+  <text x="215" y="188" text-anchor="middle" class="small">assignment notices</text>
+  <text x="215" y="210" text-anchor="middle" class="small">title, body, link, posted time</text>
+
+  <rect x="430" y="105" width="250" height="110" class="box prep"/>
+  <text x="555" y="138" text-anchor="middle" class="label">2. Preprocessing</text>
+  <text x="555" y="166" text-anchor="middle" class="small">anonymize private info</text>
+  <text x="555" y="188" text-anchor="middle" class="small">clean HTML / whitespace</text>
+  <text x="555" y="210" text-anchor="middle" class="small">remove duplicates</text>
+
+  <rect x="770" y="105" width="250" height="110" class="box labelbox"/>
+  <text x="895" y="138" text-anchor="middle" class="label">3. Manual Labels</text>
+  <text x="895" y="166" text-anchor="middle" class="small">announcement type</text>
+  <text x="895" y="188" text-anchor="middle" class="small">token spans</text>
+  <text x="895" y="210" text-anchor="middle" class="small">date, time, location, action</text>
+
+  <rect x="1110" y="105" width="250" height="110" class="box prep"/>
+  <text x="1235" y="138" text-anchor="middle" class="label">4. Dataset Split</text>
+  <text x="1235" y="166" text-anchor="middle" class="small">train / validation / test</text>
+  <text x="1235" y="188" text-anchor="middle" class="small">keep announcement boundary</text>
+  <text x="1235" y="210" text-anchor="middle" class="small">avoid duplicate leakage</text>
+
+  <path d="M340 160 L430 160" class="arrow"/>
+  <path d="M680 160 L770 160" class="arrow"/>
+  <path d="M1020 160 L1110 160" class="arrow"/>
+
+  <rect x="260" y="305" width="300" height="120" class="box prep"/>
+  <text x="410" y="338" text-anchor="middle" class="label">5. Tokenization</text>
+  <text x="410" y="366" text-anchor="middle" class="small">Transformer tokenizer</text>
+  <text x="410" y="388" text-anchor="middle" class="small">input IDs + attention mask</text>
+  <text x="410" y="410" text-anchor="middle" class="small">align BIO labels to subwords</text>
+
+  <rect x="710" y="285" width="360" height="160" class="box model"/>
+  <text x="890" y="320" text-anchor="middle" class="label">6. Single Multi-Task Model</text>
+  <text x="890" y="350" text-anchor="middle" class="small">Shared Transformer encoder</text>
+  <line x1="750" y1="372" x2="1030" y2="372" stroke="#7c3aed" stroke-width="2"/>
+  <text x="800" y="402" text-anchor="middle" class="small">Head A</text>
+  <text x="800" y="424" text-anchor="middle" class="tiny">announcement type</text>
+  <text x="980" y="402" text-anchor="middle" class="small">Head B</text>
+  <text x="980" y="424" text-anchor="middle" class="tiny">token extraction</text>
+
+  <path d="M1235 215 C1235 260 410 250 410 305" class="arrow"/>
+  <path d="M560 365 L710 365" class="arrow"/>
+
+  <rect x="240" y="540" width="320" height="135" class="box post"/>
+  <text x="400" y="573" text-anchor="middle" class="label">7. Model Prediction</text>
+  <text x="400" y="602" text-anchor="middle" class="small">type probabilities</text>
+  <text x="400" y="624" text-anchor="middle" class="small">BIO token labels</text>
+  <text x="400" y="646" text-anchor="middle" class="small">confidence scores</text>
+  <text x="400" y="668" text-anchor="middle" class="small">one or more item candidates</text>
+
+  <rect x="700" y="540" width="360" height="135" class="box post"/>
+  <text x="880" y="573" text-anchor="middle" class="label">8. Post-Processing</text>
+  <text x="880" y="602" text-anchor="middle" class="small">merge token spans</text>
+  <text x="880" y="624" text-anchor="middle" class="small">normalize date/time</text>
+  <text x="880" y="646" text-anchor="middle" class="small">group into events/deadlines</text>
+  <text x="880" y="668" text-anchor="middle" class="small">infer missing fields carefully</text>
+
+  <path d="M890 445 C890 490 400 490 400 540" class="arrow"/>
+  <path d="M560 607 L700 607" class="arrow"/>
+
+  <rect x="1085" y="510" width="320" height="195" class="box out"/>
+  <text x="1245" y="545" text-anchor="middle" class="label">9. Internal JSON Output</text>
+  <text x="1245" y="575" text-anchor="middle" class="small">announcement</text>
+  <text x="1245" y="597" text-anchor="middle" class="small">summary + counts</text>
+  <text x="1245" y="619" text-anchor="middle" class="small">items[]</text>
+  <text x="1245" y="641" text-anchor="middle" class="small">time + recurrence</text>
+  <text x="1245" y="663" text-anchor="middle" class="small">location + people</text>
+  <text x="1245" y="685" text-anchor="middle" class="small">calendar options + evidence</text>
+
+  <path d="M1060 607 L1085 607" class="arrow"/>
+
+  <!-- Label examples -->
+  <rect x="90" y="790" width="310" height="210" class="box labelbox"/>
+  <text x="245" y="825" text-anchor="middle" class="section">Announcement Types</text>
+  <text x="245" y="858" text-anchor="middle" class="small">not_relevant, notice</text>
+  <text x="245" y="880" text-anchor="middle" class="small">deadline, event</text>
+  <text x="245" y="902" text-anchor="middle" class="small">recurring_event</text>
+  <text x="245" y="924" text-anchor="middle" class="small">recruitment_event</text>
+  <text x="245" y="946" text-anchor="middle" class="small">reschedule, cancellation</text>
+  <text x="245" y="968" text-anchor="middle" class="small">exam, quiz, assignment</text>
+
+  <rect x="455" y="790" width="310" height="210" class="box labelbox"/>
+  <text x="610" y="825" text-anchor="middle" class="section">Token Labels</text>
+  <text x="610" y="858" text-anchor="middle" class="small">TITLE, ACTION</text>
+  <text x="610" y="880" text-anchor="middle" class="small">DATE, TIME, DURATION</text>
+  <text x="610" y="902" text-anchor="middle" class="small">LOCATION, BUILDING, ROOM</text>
+  <text x="610" y="924" text-anchor="middle" class="small">ONLINE_LINK, MEETING_ID</text>
+  <text x="610" y="946" text-anchor="middle" class="small">CONTACT, ORGANIZER</text>
+  <text x="610" y="968" text-anchor="middle" class="small">RECURRENCE, RESOURCE</text>
+
+  <rect x="820" y="790" width="250" height="210" class="box export"/>
+  <text x="945" y="825" text-anchor="middle" class="section">Calendar Export</text>
+  <text x="945" y="862" text-anchor="middle" class="small">.ics</text>
+  <text x="945" y="884" text-anchor="middle" class="tiny">VEVENT / VTODO</text>
+  <text x="945" y="916" text-anchor="middle" class="small">Google CSV</text>
+  <text x="945" y="938" text-anchor="middle" class="small">Outlook CSV</text>
+  <text x="945" y="970" text-anchor="middle" class="small">TimeGrid / database</text>
+
+  <rect x="1125" y="790" width="280" height="210" class="box export"/>
+  <text x="1265" y="825" text-anchor="middle" class="section">Calendar Features</text>
+  <text x="1265" y="858" text-anchor="middle" class="small">start / end / due time</text>
+  <text x="1265" y="880" text-anchor="middle" class="small">recurrence + exceptions</text>
+  <text x="1265" y="902" text-anchor="middle" class="small">reminders</text>
+  <text x="1265" y="924" text-anchor="middle" class="small">privacy + availability</text>
+  <text x="1265" y="946" text-anchor="middle" class="small">attendees + organizer</text>
+  <text x="1265" y="968" text-anchor="middle" class="small">online meeting + attachments</text>
+
+  <path d="M1245 705 L1245 790" class="arrow"/>
+  <path d="M1245 705 C1245 745 945 745 945 790" class="thin"/>
+
+  <!-- Bottom note -->
+  <rect x="245" y="1050" width="1010" height="58" rx="14" ry="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="750" y="1085" text-anchor="middle" class="label">Core idea: keep one rich JSON output, then export each extracted item to calendar formats.</text>
+</svg>

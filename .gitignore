@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Office temporary files
+~$*
+
+# Local outputs and secrets
+.env
+.env.*
+outputs/*
+!outputs/.gitkeep
+
