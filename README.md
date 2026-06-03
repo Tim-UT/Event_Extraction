@@ -29,9 +29,14 @@ The project uses a single Transformer sequence-labeling model. The model predict
 ├── anonymize_announcements.py
 ├── output_data_structure.md
 ├── project_flow_map.md
-├── simplified_main_flow.svg
 ├── sample announcement.rtf
 ├── blurried sample announcement.rtf
+├── Proposal/
+│   ├── proposal.tex
+│   ├── proposal.pdf
+│   ├── proposal.docx
+│   ├── aps360.sty
+│   └── template.tex
 ├── data/
 │   ├── README.md
 │   └── sample_announcements.csv
@@ -80,4 +85,3 @@ The expected structured output includes:
 ## Notes
 
 Raw Canvas announcements may contain private information. Before training, names, emails, Zoom links, room numbers, and course identifiers should be anonymized.
-
