@@ -48,7 +48,7 @@ Several existing calendar tools are related to this project. Apple Calendar supp
 There are also related parsing and extraction tools. Chrono-node and Duckling parse natural-language dates and times \citep{chrono,duckling}, while OmniEvent provides a more general event extraction toolkit \citep{li2023omnievent}. This project is different because it focuses on course-specific calendar fields, such as tutorial rooms, office hours, assignment deadlines, course codes, and rescheduled sessions. The model is based on the Transformer architecture \citep{vaswani2017attention}; DistilBERT is a practical candidate because it is smaller than BERT while keeping strong language understanding ability \citep{sanh2019distilbert}.
 
 \section*{Data Processing}
-The dataset will be made from Canvas course announcements. Before labeling, all raw text will be anonymized by replacing names, emails, Zoom links, phone numbers, and other sensitive details with placeholders. The labels will include token-level tags for fields such as date, time, title, location, course code, and contact information. Announcement types will be derived from these fields during post-processing.
+The dataset will be made from Canvas course announcements exported from my own Canvas account using the open-source canvas-student-data-export tool \citep{canvasexport}. Before labeling, all raw text will be anonymized by replacing names, emails, Zoom links, phone numbers, and other sensitive details with placeholders. The labels will include token-level tags for fields such as date, time, title, location, course code, and contact information. Announcement types will be derived from these fields during post-processing.
 
 Preprocessing will include duplicate removal, tokenization, sequence padding or truncation, and a train/validation/test split. Since course announcements can be short or long, the maximum sequence length will be chosen after checking the dataset distribution. The final output format will be JSON first, because it is easy to inspect during development, and can later be converted into ICS for calendar integration.
 
@@ -92,6 +92,12 @@ Google Calendar.
 \bibitem[Microsoft Outlook Calendar(2026)]{outlookcalendar}
 Microsoft Outlook Calendar.
 \newblock Calendar feature in Microsoft Outlook.
+
+\bibitem[canvas-student-data-export(2026)]{canvasexport}
+davekats.
+\newblock canvas-student-data-export: Python script to download student data from Canvas LMS.
+\newblock GitHub repository.
+\newblock \url{https://github.com/davekats/canvas-student-data-export}.
 
 \bibitem[Li et~al.(2023)]{li2023omnievent}
 S. Li et~al.
