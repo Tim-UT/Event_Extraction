@@ -1,1 +1,1 @@
-public_release/v0.1/model/span_model/model.safetensors filter=lfs diff=lfs merge=lfs -text
+public_release/v1.0/model/span_model/model.safetensors filter=lfs diff=lfs merge=lfs -text

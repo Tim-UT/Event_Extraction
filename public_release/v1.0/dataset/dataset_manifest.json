@@ -1,0 +1,45 @@
+{
+  "dataset": "announcement_item_marks_public_v1.0.csv",
+  "version": "1.0",
+  "rows": 6060,
+  "columns": 20,
+  "sha256": "eb0ffd0e7d5e6d4bf9f706ce5ba4e50b72681139788813324887abe8ece235f5",
+  "classification_distribution": {
+    "deadline": 1198,
+    "event": 2112,
+    "not related": 561,
+    "notice": 2189
+  },
+  "split_distribution": {
+    "test": 689,
+    "train": 4710,
+    "validation": 661
+  },
+  "second_pass_cells_changed": 20402,
+  "privacy_qa": {
+    "row_count_matches_after_exclusions": true,
+    "excluded_restricted_or_biographical_rows": 11,
+    "column_order_preserved": true,
+    "labels_and_splits_preserved": true,
+    "original_course_code_residuals": 0,
+    "original_room_code_residuals": 0,
+    "original_url_residuals": 0,
+    "original_email_residuals": 0,
+    "original_phone_residuals": 0,
+    "original_postal_code_residuals": 0,
+    "original_street_address_residuals": 0,
+    "original_author_residuals": 0,
+    "original_nonpublic_location_residuals": 0,
+    "original_person_name_phrase_residuals": 0,
+    "original_social_handle_residuals": 0,
+    "explicit_credentials_remaining": 0,
+    "enter_course_code_credentials_remaining": 0,
+    "raw_short_mixed_identifiers_remaining": 0,
+    "raw_long_mixed_identifiers_remaining": 0,
+    "non_example_email_aliases_remaining": 0,
+    "row_scoped_person_tokens_remaining": 0,
+    "fail_closed_location_tokens_remaining": 0,
+    "fail_closed_person_tokens_remaining": 0,
+    "reviewed_row_ids_preserved": true
+  }
+}
