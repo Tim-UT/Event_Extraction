@@ -1,0 +1,26 @@
+{
+  "evaluation_protocol": "Frozen model evaluated once after validation selection; source groups and exact inputs do not cross development/test boundaries.",
+  "acceptance_test": {
+    "rows": 443,
+    "source_groups": 327,
+    "class_counts": {
+      "not related": 27,
+      "notice": 262,
+      "deadline": 93,
+      "event": 61
+    },
+    "classification_accuracy": 0.8781038374717833,
+    "classification_macro_f1": 0.8181766875824101,
+    "start_time_exact_match": 0.8826185101580135,
+    "start_time_nonblank_rows": 323,
+    "start_time_nonblank_exact_match": 0.8699690402476781,
+    "end_time_exact_match": 0.9232505643340858,
+    "end_time_nonblank_rows": 154,
+    "end_time_nonblank_exact_match": 0.8961038961038961
+  },
+  "rule_baseline": {
+    "classification_accuracy": 0.3340857787810384,
+    "start_time_exact_match": 0.291196388261851,
+    "end_time_exact_match": 0.8239277652370203
+  }
+}
